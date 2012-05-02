@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{AB4E17BA-C0EB-4552-9D56-D8E8C0CB53A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{817E9366-DF9A-473C-946D-57A6D771BD6E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "epublib", "epublib\epublib.csproj", "{11B7D88C-5768-42C9-93A9-562B75E26704}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11B7D88C-5768-42C9-93A9-562B75E26704}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11B7D88C-5768-42C9-93A9-562B75E26704}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11B7D88C-5768-42C9-93A9-562B75E26704}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11B7D88C-5768-42C9-93A9-562B75E26704}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{11B7D88C-5768-42C9-93A9-562B75E26704} = {AB4E17BA-C0EB-4552-9D56-D8E8C0CB53A5}
+	EndGlobalSection
+EndGlobal
