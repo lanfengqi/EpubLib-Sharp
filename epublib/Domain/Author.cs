@@ -8,7 +8,8 @@
 
 
 using System;
-using nl.siegmann.epublib.domain;
+using nl.siegmann.epublib.util;
+
 namespace nl.siegmann.epublib.domain
 {
     /// <summary>
@@ -17,60 +18,42 @@ namespace nl.siegmann.epublib.domain
     [Serializable]
     public class Author
     {
-
         private string firstname;
         private string lastname;
         private Relator relator = Relator.AUTHOR;
         private static readonly long serialVersionUID = 6663408501416574200L;
 
-        public Author()
-        {
-
-        }
-
-        ~Author()
-        {
-
-        }
-
-        public virtual void Dispose()
-        {
-
-        }
-
-        /// 
-        /// <param name="singleName"></param>
         public Author(string singleName)
+            : this("", singleName)
         {
 
         }
 
-        /// 
-        /// <param name="firstname"></param>
-        /// <param name="lastname"></param>
         public Author(string firstname, string lastname)
         {
-
+            this.firstname = firstname;
+            this.lastname = lastname;
         }
 
-        /// 
-        /// <param name="authorObject"></param>
         public bool equals(Object authorObject)
         {
-
-            return false;
+            if (!(authorObject.GetType() == typeof(Author)))
+            {
+                return false;
+            }
+            var other = (Author)authorObject;
+            return StringUtil.equals(firstname, other.firstname)
+             && StringUtil.equals(lastname, other.lastname);
         }
 
         public string getFirstname()
         {
-
-            return "";
+            return this.firstname;
         }
 
         public string getLastname()
         {
-
-            return "";
+            return this.lastname;
         }
 
         public Relator getRelator()
@@ -80,42 +63,32 @@ namespace nl.siegmann.epublib.domain
 
         public int hashCode()
         {
-
-            return 0;
+            return StringUtil.hashCode(new string[] { firstname, lastname });
         }
 
-        /// 
-        /// <param name="firstname"></param>
         public void setFirstname(string firstname)
         {
-
+            this.firstname = firstname;
         }
 
-        /// 
-        /// <param name="lastname"></param>
         public void setLastname(string lastname)
         {
-
+            this.lastname = lastname;
         }
 
-        /// 
-        /// <param name="relator"></param>
         public void setRelator(Relator relator)
         {
-
+            this.relator = relator;
         }
 
-        /// 
-        /// <param name="code"></param>
         public Relator setRole(string code)
         {
-            return new Relator();
+            return this.relator;
         }
 
         public string toString()
         {
-
-            return "";
+            return lastname + ", " + firstname;
         }
 
     }//end Author
