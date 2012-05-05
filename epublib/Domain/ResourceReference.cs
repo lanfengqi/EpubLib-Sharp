@@ -16,27 +16,16 @@ namespace nl.siegmann.epublib.domain {
 		protected Resource resource;
 		private static readonly long serialVersionUID = 2596967243557743048L;
 
-		public ResourceReference(){
-
-		}
-
-		~ResourceReference(){
-
-		}
-
-		public virtual void Dispose(){
-
-		}
-
 		/// 
 		/// <param name="resource"></param>
-		public ResourceReference(Resource resource){
-
+		public ResourceReference(Resource resource)
+		{
+		    this.resource = resource;
 		}
 
 		public Resource getResource(){
 
-			return null;
+			return this.resource;
 		}
 
 		/// <summary>
@@ -45,15 +34,20 @@ namespace nl.siegmann.epublib.domain {
 		/// </summary>
 		public string getResourceId(){
 
-			return "";
+            if (resource != null)
+            {
+                return resource.getId();
+            }
+            return null;
 		}
 
 		/// <summary>
 		/// Besides setting the resource it also sets the fragmentId to null.
 		/// </summary>
 		/// <param name="resource">resource</param>
-		public void setResource(Resource resource){
-
+		public void setResource(Resource resource)
+		{
+		    this.resource = resource;
 		}
 
 	}//end ResourceReference
