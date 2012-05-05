@@ -76,8 +76,19 @@ namespace nl.siegmann.epublib.util
         /// <param name="suffix"></param>
         public static bool endsWithIgnoreCase(String source, String suffix)
         {
-
-            return true;
+            if (isEmpty(suffix))
+            {
+                return true;
+            }
+            if (isEmpty(source))
+            {
+                return false;
+            }
+            if (suffix.Length > source.Length)
+            {
+                return false;
+            }
+            return source.Substring(source.Length - suffix.Length).ToLower().Equals(suffix.ToLower());
         }
 
         /// <summary>
@@ -104,8 +115,11 @@ namespace nl.siegmann.epublib.util
         /// <param name="text"></param>
         public static bool isBlank(String text)
         {
-
-            return true;
+            if (isEmpty(text))
+            {
+                return true;
+            }
+            return (text.Trim().Length == 0);
         }
 
         /// <summary>
@@ -114,8 +128,7 @@ namespace nl.siegmann.epublib.util
         /// <param name="text"></param>
         public static bool isEmpty(String text)
         {
-
-            return true;
+            return (text == null) || (string.IsNullOrEmpty(text));
         }
 
         /// <summary>
@@ -125,8 +138,7 @@ namespace nl.siegmann.epublib.util
         /// <param name="text"></param>
         public static bool isNotBlank(String text)
         {
-
-            return true;
+            return !isBlank(text);
         }
 
         /// <summary>

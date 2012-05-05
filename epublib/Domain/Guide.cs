@@ -24,7 +24,7 @@ namespace nl.siegmann.epublib.domain
         private static readonly int COVERPAGE_NOT_FOUND = -1;
         private static readonly int COVERPAGE_UNITIALIZED = -2;
         private int coverPageIndex = -1;
-        private string DEFAULT_COVER_TITLE = (new GuideReference()).Cover;
+        private string DEFAULT_COVER_TITLE = GuideReference.COVER;
         private List<GuideReference> references = new List<GuideReference>();
         private static readonly long serialVersionUID = -6256645339915751189L;
 

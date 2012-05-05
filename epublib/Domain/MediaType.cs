@@ -10,88 +10,82 @@
 using System;
 using System.Collections.ObjectModel;
 
-namespace nl.siegmann.epublib.domain {
-	/// <summary>
-	/// MediaType is used to tell the type of content a resource is.  Examples of
-	/// mediatypes are image/gif, text/css and application/xhtml+xml  All allowed
-	/// mediaTypes are maintained bye the MediaTypeService.
-	/// </summary>
-	/// <see>nl.siegmann.epublib.service.MediatypeService</see>
+namespace nl.siegmann.epublib.domain
+{
+    /// <summary>
+    /// MediaType is used to tell the type of content a resource is.  Examples of
+    /// mediatypes are image/gif, text/css and application/xhtml+xml  All allowed
+    /// mediaTypes are maintained bye the MediaTypeService.
+    /// </summary>
+    /// <see>nl.siegmann.epublib.service.MediatypeService</see>
     [Serializable]
-	public class MediaType {
+    public class MediaType
+    {
 
-		private string defaultExtension;
-		private Collection<String> extensions;
-		private string name;
-		private static readonly long serialVersionUID = -7256091153727506788L;
+        private string defaultExtension;
+        private string[] extensions;
+        private string name;
+        private static readonly long serialVersionUID = -7256091153727506788L;
 
-		public MediaType(){
+        /// 
+        /// <param name="name"></param>
+        /// <param name="defaultExtension"></param>
+        public MediaType(string name, string defaultExtension)
+            : this(name, defaultExtension, new String[] { defaultExtension })
+        {
 
-		}
+        }
 
-		~MediaType(){
+        /// 
+        /// <param name="name"></param>
+        /// <param name="defaultExtension"></param>
+        /// <param name="extensions"></param>
+        public MediaType(string name, string defaultExtension, String[] extensions)
+        {
+            this.name = name;
+            this.defaultExtension = defaultExtension;
+            this.extensions = extensions;
+        }
 
-		}
+        /// 
+        /// <param name="otherMediaType"></param>
+        public bool equals(Object otherMediaType)
+        {
+            if (!(otherMediaType.GetType() == typeof(MediaType)))
+            {
+                return false;
+            }
+            return name.Equals(((MediaType)otherMediaType).getName());
+        }
 
-		public virtual void Dispose(){
+        public string getDefaultExtension()
+        {
+            return defaultExtension;
+        }
 
-		}
+        public string[] getExtensions()
+        {
+            return extensions;
+        }
 
-		/// 
-		/// <param name="name"></param>
-		/// <param name="defaultExtension"></param>
-		public MediaType(string name, string defaultExtension){
+        public string getName()
+        {
+            return name;
+        }
 
-		}
+        public int hashCode()
+        {
+            if (name == null)
+                return 0;
+            return name.GetHashCode();
+        }
 
-		/// 
-		/// <param name="name"></param>
-		/// <param name="defaultExtension"></param>
-		/// <param name="extensions"></param>
-		public MediaType(string name, string defaultExtension, String[] extensions){
+        public string toString()
+        {
 
-		}
+            return name;
+        }
 
-		/// 
-		/// <param name="name"></param>
-		/// <param name="defaultExtension"></param>
-		/// <param name="extensions"></param>
-		public MediaType(string name, string defaultExtension, Collection<String> extensions){
-
-		}
-
-		/// 
-		/// <param name="otherMediaType"></param>
-		public bool equals(Object otherMediaType){
-
-			return false;
-		}
-
-		public string getDefaultExtension(){
-
-			return "";
-		}
-
-		public Collection<String> getExtensions(){
-
-			return null;
-		}
-
-		public string getName(){
-
-			return "";
-		}
-
-		public int hashCode(){
-
-			return 0;
-		}
-
-		public string toString(){
-
-			return "";
-		}
-
-	}//end MediaType
+    }//end MediaType
 
 }//end namespace domain

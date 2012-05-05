@@ -8,3 +8,4 @@ I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\bin\Debug\epublib.pdb
 I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\obj\Debug\ResolveAssemblyReference.cache
 I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\obj\Debug\epublib.dll
 I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\obj\Debug\epublib.pdb
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\bin\Debug\Ionic.Zip.dll

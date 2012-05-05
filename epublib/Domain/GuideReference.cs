@@ -10,266 +10,119 @@
 
 using System;
 using nl.siegmann.epublib.domain;
-namespace nl.siegmann.epublib.domain {
-	/// <summary>
-	/// These are references to elements of the book's guide.
-	/// </summary>
-	/// <see>nl.siegmann.epublib.domain.Guide</see>
-	[Serializable]
-	public class GuideReference : TitledResourceReference{
+using nl.siegmann.epublib.util;
 
-        private static string acknowledgements = "acknowledgements";
-        private static string bibliography = "bibliography";
-        private static string colophon = "colophon";
-		private static string copyright_page = "copyright-page";
-		/// <summary>
-		/// the book cover(s), jacket information, etc.
-		/// </summary>
-        private static string cover = "cover";
-        private static string dedication = "dedication";
-		/// <summary>
-		/// an epigraph is a phrase, quotation, or poem that is set at the beginning of a
-		/// document or component. source: http://en.wikipedia.
-		/// org/wiki/Epigraph_%28literature%29
-		/// </summary>
-        private static string epigraph = "epigraph";
-        private static string foreword = "foreword";
-        private static string glossary = "glossary";
-		/// <summary>
-		/// back-of-book style index
-		/// </summary>
-        private static string index = "index";
-		/// <summary>
-		/// list of illustrations
-		/// </summary>
-        private static string loi = "loi";
-		/// <summary>
-		/// list of tables
-		/// </summary>
-        private static string lot = "lot";
-        private static string notes = "notes";
-        private static string preface = "preface";
-		private static readonly long serialVersionUID = -316179702440631834L;
-		/// <summary>
-		/// A page of content (e.g. "Chapter 1")
-		/// </summary>
-        private static string text = "text";
-		/// <summary>
-		/// human-readable page with title, author, publisher, and other metadata
-		/// </summary>
-		private static string title_page = "title-page";
-		/// <summary>
-		/// Human-readable table of contents. Not to be confused the epub file table of
-		/// contents
-		/// </summary>
-		private static string toc = "toc";
-		private string type;
+namespace nl.siegmann.epublib.domain
+{
+    /// <summary>
+    /// These are references to elements of the book's guide.
+    /// </summary>
+    /// <see>nl.siegmann.epublib.domain.Guide</see>
+    [Serializable]
+    public class GuideReference : TitledResourceReference
+    {
 
-		public GuideReference(){
+        public static string ACKNOWLEDGEMENTS = "acknowledgements";
+        public static string BIBLIOGRAPHY = "bibliography";
+        public static string COLOPHON = "colophon";
+        public static string COPYRIGHT_PAGE = "copyright-page";
+        /// <summary>
+        /// the book cover(s), jacket information, etc.
+        /// </summary>
+        public static string COVER = "cover";
+        public static string DEDICATION = "dedication";
+        /// <summary>
+        /// an epigraph is a phrase, quotation, or poem that is set at the beginning of a
+        /// document or component. source: http://en.wikipedia.
+        /// org/wiki/Epigraph_%28literature%29
+        /// </summary>
+        public static string EPIGRAPH = "epigraph";
+        public static string FOREWPRD = "foreword";
+        public static string GLOSSARY = "glossary";
+        /// <summary>
+        /// back-of-book style index
+        /// </summary>
+        public static string INDEX = "index";
+        /// <summary>
+        /// list of illustrations
+        /// </summary>
+        public static string LOI = "loi";
+        /// <summary>
+        /// list of tables
+        /// </summary>
+        public static string LOT = "lot";
+        public static string NOTES = "notes";
+        public static string PREFACE = "preface";
+        public static readonly long serialVersionUID = -316179702440631834L;
+        /// <summary>
+        /// A page of content (e.g. "Chapter 1")
+        /// </summary>
+        public static string TEXT = "text";
+        /// <summary>
+        /// human-readable page with title, author, publisher, and other metadata
+        /// </summary>
+        public static string TITLE_PAGE = "title-page";
+        /// <summary>
+        /// Human-readable table of contents. Not to be confused the epub file table of
+        /// contents
+        /// </summary>
+        public static string TOC = "toc";
+        private string type;
 
-		}
-
-		~GuideReference(){
-
-		}
-
-		public override void Dispose(){
-
-		}
-
-		/// 
-		/// <param name="resource"></param>
-		public GuideReference(Resource resource){
-
-		}
-
-		/// 
-		/// <param name="resource"></param>
-		/// <param name="title"></param>
-		public GuideReference(Resource resource, string title){
-
-		}
-
-		/// 
-		/// <param name="resource"></param>
-		/// <param name="type"></param>
-		/// <param name="title"></param>
-		public GuideReference(Resource resource, string type, string title){
-
-		}
-
-		/// 
-		/// <param name="resource"></param>
-		/// <param name="type"></param>
-		/// <param name="title"></param>
-		/// <param name="fragmentId"></param>
-		public GuideReference(Resource resource, string type, string title, string fragmentId){
-
-		}
-
-		public  string Acknowledgements{
-			get{
-				return acknowledgements;
-			}
-			set{
-				acknowledgements = value;
-			}
-		}
-
-		public string  Bibliography{
-			get { return bibliography; }
-			set{
-				bibliography = value;
-			}
-		}
-
-		public string Colophon{
-			get{
-				return colophon;
-			}
-			set{
-				colophon = value;
-			}
-		}
-
-		public string Copyright_Page{
-			get{
-				return copyright_page;
-			}
-			set{
-				copyright_page = value;
-			}
-		}
-
-		public string Cover{
-			get{
-				return cover;
-			}
-			set{
-				cover = value;
-			}
-		}
-
-		public string Dedication{
-			get{
-				return dedication;
-			}
-			set{
-				dedication = value;
-			}
-		}
-
-		public string Epigraph{
-			get{
-				return epigraph;
-			}
-			set{
-				epigraph = value;
-			}
-		}
-
-		public string Foreword{
-			get{
-				return foreword;
-			}
-			set{
-				foreword = value;
-			}
-		}
-
-		public string getType(){
-
-			return "";
-		}
-
-		public string Glossary{
-			get{
-				return glossary;
-			}
-			set{
-				glossary = value;
-			}
-		}
-
-		public string Index{
-			get{
-				return index;
-			}
-			set{
-				index = value;
-			}
-		}
-
-		public string LOI{
-			get{
-				return loi;
-			}
-			set{
-				loi = value;
-			}
-		}
-
-		public string LOT{
-			get{
-				return lot;
-			}
-			set{
-				lot = value;
-			}
-		}
-
-		public string Notes{
-			get{
-				return notes;
-			}
-			set{
-				notes = value;
-			}
-		}
-
-		public string Preface{
-			get{
-				return preface;
-			}
-			set{
-				preface = value;
-			}
-		}
-
-		/// 
-		/// <param name="type"></param>
-		public void setType(string type){
-
-		}
-
-		public string Text{
-			get{
-				return text;
-			}
-			set{
-				text = value;
-			}
-		}
-
-        public string Title_Page
+        /// 
+        /// <param name="resource"></param>
+        public GuideReference(Resource resource)
+            : this(resource, null)
         {
-			get{
-				return title_page;
-			}
-			set{
-                title_page = value;
-			}
-		}
 
-		public string TOC{
-			get{
-				return toc;
-			}
-			set{
-                toc = value;
-			}
-		}
+        }
 
-	}//end GuideReference
+        /// 
+        /// <param name="resource"></param>
+        /// <param name="title"></param>
+        public GuideReference(Resource resource, string title)
+            : base(resource, title)
+        {
 
-}//end namespace domain
+        }
+
+        /// 
+        /// <param name="resource"></param>
+        /// <param name="type"></param>
+        /// <param name="title"></param>
+        public GuideReference(Resource resource, string type, string title)
+            : this(resource, type, title, null)
+        {
+
+        }
+
+        /// 
+        /// <param name="resource"></param>
+        /// <param name="type"></param>
+        /// <param name="title"></param>
+        /// <param name="fragmentId"></param>
+        public GuideReference(Resource resource, string type, string title, string fragmentId)
+            : base(resource, title, fragmentId)
+        {
+            this.type = StringUtil.isNotBlank(type) ? type.ToLower() : null;
+        }
+
+        /// <summary>
+        /// 设置类型
+        /// </summary>
+        /// <param name="type"></param>
+        public void setType(string type)
+        {
+            this.type = type;
+        }
+
+        /// <summary>
+        /// 获取类型
+        /// </summary>
+        /// <returns></returns>
+        public string getType()
+        {
+            return this.type;
+        }
+    }
+}

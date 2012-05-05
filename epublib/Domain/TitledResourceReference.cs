@@ -8,94 +8,92 @@
 
 
 using System;
+using epublib;
 using nl.siegmann.epublib.domain;
-namespace nl.siegmann.epublib.domain {
+using nl.siegmann.epublib.util;
+
+namespace nl.siegmann.epublib.domain
+{
     [Serializable]
-	public class TitledResourceReference : ResourceReference {
+    public class TitledResourceReference : ResourceReference
+    {
 
-		private string fragmentId;
-		private static readonly long serialVersionUID = 3918155020095190080L;
-		private string title;
+        private string fragmentId;
+        private static readonly long serialVersionUID = 3918155020095190080L;
+        private string title;
 
-		public TitledResourceReference(){
+        public TitledResourceReference(Resource resource)
+            : this(resource, null)
+        {
 
-		}
+        }
 
-		~TitledResourceReference(){
+        public TitledResourceReference(Resource resource, string title)
+            : this(resource, title, null)
+        {
 
-		}
+        }
 
-		public override void Dispose(){
+        public TitledResourceReference(Resource resource, string title, string fragmentId)
+            : base(resource)
+        {
+            this.title = title;
+            this.fragmentId = fragmentId;
+        }
 
-		}
+        public string getFragmentId()
+        {
+            return this.fragmentId;
+        }
 
-		/// 
-		/// <param name="resource"></param>
-		public TitledResourceReference(Resource resource){
+        public void setFragmentId(string fragmentId)
+        {
+            this.fragmentId = fragmentId;
+        }
 
-		}
+        public string getTitle()
+        {
+            return this.title;
+        }
 
-		/// 
-		/// <param name="resource"></param>
-		/// <param name="title"></param>
-		public TitledResourceReference(Resource resource, string title){
+        public void setTitle(string title)
+        {
+            this.setTitle(title);
+        }
 
-		}
+        /// <summary>
+        /// If the fragmentId is blank it returns the resource href, otherwise it returns
+        /// the resource href + '#' + the fragmentId.
+        /// </summary>
+        public string getCompleteHref()
+        {
+            if (StringUtil.isBlank(fragmentId))
+            {
+                return resource.getHref();
+            }
+            else
+            {
+                return resource.getHref() + Constants.FRAGMENT_SEPARATOR_CHAR + fragmentId;
+            }
+        }
 
-		/// 
-		/// <param name="resource"></param>
-		/// <param name="title"></param>
-		/// <param name="fragmentId"></param>
-		public TitledResourceReference(Resource resource, string title, string fragmentId){
+        /// <summary>
+        /// Sets the resource to the given resource and sets the fragmentId to null.
+        /// </summary>
+        /// <param name="resource"></param>
+        public void setResource(Resource resource, string fragmentId)
+        {
+            base.setResource(resource);
+            this.fragmentId = fragmentId;
+        }
 
-		}
-
-		/// <summary>
-		/// If the fragmentId is blank it returns the resource href, otherwise it returns
-		/// the resource href + '#' + the fragmentId.
-		/// </summary>
-		public string getCompleteHref(){
-
-			return "";
-		}
-
-		public string getFragmentId(){
-
-			return "";
-		}
-
-		public string getTitle(){
-
-			return "";
-		}
-
-		/// 
-		/// <param name="fragmentId"></param>
-		public void setFragmentId(string fragmentId){
-
-		}
-
-		/// 
-		/// <param name="resource"></param>
-		/// <param name="fragmentId"></param>
-		public void setResource(Resource resource, string fragmentId){
-
-		}
-
-		/// <summary>
-		/// Sets the resource to the given resource and sets the fragmentId to null.
-		/// </summary>
-		/// <param name="resource"></param>
-		public void setResource(Resource resource){
-
-		}
-
-		/// 
-		/// <param name="title"></param>
-		public void setTitle(string title){
-
-		}
-
-	}//end TitledResourceReference
-
-}//end namespace domain
+        /// <summary>
+        /// Sets the resource to the given resource and sets the fragmentId to null.
+        /// </summary>
+        /// <param name="resource"></param>
+        public void setResource(Resource resource)
+        {
+            setResource(resource, null);
+        }
+    }
+}

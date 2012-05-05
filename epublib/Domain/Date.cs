@@ -31,18 +31,6 @@ namespace nl.siegmann.epublib.domain {
 		private Event _event;
 		private static readonly long serialVersionUID = 7533866830395120136L;
 
-		public Date(){
-
-		}
-
-		~Date(){
-
-		}
-
-		public virtual void Dispose(){
-
-		}
-
 		/// 
 		/// <param name="date"></param>
 		public Date(Date date){
