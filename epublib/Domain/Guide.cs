@@ -24,47 +24,24 @@ namespace nl.siegmann.epublib.domain
         private static readonly int COVERPAGE_NOT_FOUND = -1;
         private static readonly int COVERPAGE_UNITIALIZED = -2;
         private int coverPageIndex = -1;
-        private string DEFAULT_COVER_TITLE = GuideReference.COVER;
+        private static string DEFAULT_COVER_TITLE = GuideReference.COVER;
         private List<GuideReference> references = new List<GuideReference>();
         private static readonly long serialVersionUID = -6256645339915751189L;
-
-        public Guide()
-        {
-
-        }
-
-        ~Guide()
-        {
-
-        }
-
-        public virtual void Dispose()
-        {
-
-        }
 
         /// 
         /// <param name="reference"></param>
         public ResourceReference addReference(GuideReference reference)
         {
-
-            return null;
+            references.Add(reference);
+            uncheckCoverPage();
+            return reference;
         }
 
         private void checkCoverPage()
         {
-
-        }
-
-        public string default_cover_title
-        {
-            get
+            if (coverPageIndex == COVERPAGE_UNITIALIZED)
             {
-                return DEFAULT_COVER_TITLE;
-            }
-            set
-            {
-                DEFAULT_COVER_TITLE = value;
+                initCoverPage();
             }
         }
 
@@ -73,13 +50,21 @@ namespace nl.siegmann.epublib.domain
         /// </summary>
         public Resource getCoverPage()
         {
-
-            return null;
+            GuideReference guideReference = getCoverReference();
+            if (guideReference == null)
+            {
+                return null;
+            }
+            return guideReference.getResource();
         }
 
         public GuideReference getCoverReference()
         {
-
+            checkCoverPage();
+            if (coverPageIndex >= 0)
+            {
+                return references[coverPageIndex];
+            }
             return null;
         }
 
@@ -90,46 +75,70 @@ namespace nl.siegmann.epublib.domain
         /// <param name="referenceTypeName"></param>
         public List<GuideReference> getGuideReferencesByType(string referenceTypeName)
         {
-
-            return null;
+            List<GuideReference> result = new List<GuideReference>();
+            foreach (GuideReference guideReference in references)
+            {
+                if (referenceTypeName.Equals(guideReference.getType()))
+                {
+                    result.Add(guideReference);
+                }
+            }
+            return result;
         }
 
         public List<GuideReference> getReferences()
         {
-
-            return null;
+            return this.references;
         }
 
         private void initCoverPage()
         {
-
+            int result = COVERPAGE_NOT_FOUND;
+            for (int i = 0; i < references.Count; i++)
+            {
+                GuideReference guideReference = references[i];
+                if (guideReference.getType().Equals(GuideReference.COVER))
+                {
+                    result = i;
+                    break;
+                }
+            }
+            coverPageIndex = result;
         }
 
         /// 
         /// <param name="coverPage"></param>
         public void setCoverPage(Resource coverPage)
         {
-
+            GuideReference coverpageGuideReference = new GuideReference(coverPage, GuideReference.COVER, DEFAULT_COVER_TITLE);
+            setCoverReference(coverpageGuideReference);
         }
 
         /// 
         /// <param name="guideReference"></param>
         public int setCoverReference(GuideReference guideReference)
         {
-
-            return 0;
+            if (coverPageIndex >= 0)
+            {
+                references[coverPageIndex] = guideReference;
+            }
+            else
+            {
+                references.Add(guideReference);
+                coverPageIndex = 0;
+            }
+            return coverPageIndex;
         }
 
-        /// 
-        /// <param name="references"></param>
         public void setReferences(List<GuideReference> references)
         {
-
+            this.references = references;
+            uncheckCoverPage();
         }
 
         private void uncheckCoverPage()
         {
-
+            this.coverPageIndex = COVERPAGE_UNITIALIZED;
         }
 
     }//end Guide

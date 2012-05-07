@@ -9,3 +9,9 @@ I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\obj\Debug\ResolveAssem
 I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\obj\Debug\epublib.dll
 I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\obj\Debug\epublib.pdb
 I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\bin\Debug\Ionic.Zip.dll
+C:\Users\lanfengqi\Desktop\lanfengqi-EpubLib-Sharp-e73a402\epublib\bin\Debug\epublib.dll
+C:\Users\lanfengqi\Desktop\lanfengqi-EpubLib-Sharp-e73a402\epublib\bin\Debug\epublib.pdb
+C:\Users\lanfengqi\Desktop\lanfengqi-EpubLib-Sharp-e73a402\epublib\bin\Debug\Ionic.Zip.dll
+C:\Users\lanfengqi\Desktop\lanfengqi-EpubLib-Sharp-e73a402\epublib\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\lanfengqi\Desktop\lanfengqi-EpubLib-Sharp-e73a402\epublib\obj\Debug\epublib.dll
+C:\Users\lanfengqi\Desktop\lanfengqi-EpubLib-Sharp-e73a402\epublib\obj\Debug\epublib.pdb

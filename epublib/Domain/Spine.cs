@@ -11,156 +11,203 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using nl.siegmann.epublib.domain;
-namespace nl.siegmann.epublib.domain {
-	/// <summary>
-	/// The spine sections are the sections of the book in the order in which the book
-	/// should be read.  This contrasts with the Table of Contents sections which is an
-	/// index into the Book's sections.
-	/// </summary>
-	/// <see>nl.siegmann.epublib.domain.TableOfContents</see>
+using nl.siegmann.epublib.util;
+namespace nl.siegmann.epublib.domain
+{
+    /// <summary>
+    /// The spine sections are the sections of the book in the order in which the book
+    /// should be read.  This contrasts with the Table of Contents sections which is an
+    /// index into the Book's sections.
+    /// </summary>
+    /// <see>nl.siegmann.epublib.domain.TableOfContents</see>
     [Serializable]
-	public class Spine  {
+    public class Spine
+    {
 
-		private static readonly long serialVersionUID = 3878483958947357246L;
-		private List<SpineReference> spineReferences;
-		private Resource tocResource;
+        private static readonly long serialVersionUID = 3878483958947357246L;
+        private List<SpineReference> spineReferences;
+        private Resource tocResource;
 
 
+        public Spine()
+            : this(new List<SpineReference>())
+        {
 
-		~Spine(){
+        }
 
-		}
+        /// <summary>
+        /// Creates a spine out of all the resources in the table of contents.
+        /// </summary>
+        /// <param name="tableOfContents">tableOfContents</param>
+        public Spine(TableOfContents tableOfContents)
+        {
+            this.spineReferences = createSpineReferences(tableOfContents.getAllUniqueResources());
+        }
 
-		public virtual void Dispose(){
+        /// 
+        /// <param name="spineReferences"></param>
+        public Spine(List<SpineReference> spineReferences)
+        {
+            this.spineReferences = spineReferences;
+        }
 
-		}
+        /// 
+        /// <param name="resources"></param>
+        public static List<SpineReference> createSpineReferences(List<Resource> resources)
+        {
+            List<SpineReference> result = new List<SpineReference>(resources.Count);
+            foreach (Resource resource in resources)
+            {
+                result.Add(new SpineReference(resource));
+            }
+            return result;
+        }
 
-		public Spine(){
 
-		}
+        /// <summary>
+        /// Adds the given resource to the spine references and returns it.
+        /// </summary>
+        /// <param>spineReference</param>
+        /// <param name="resource"></param>
+        public SpineReference addResource(Resource resource)
+        {
+            return addSpineReference(new SpineReference(resource));
+        }
 
-		/// <summary>
-		/// Creates a spine out of all the resources in the table of contents.
-		/// </summary>
-		/// <param name="tableOfContents">tableOfContents</param>
-		public Spine(TableOfContents tableOfContents){
+        /// <summary>
+        /// Adds the given spineReference to the spine references and returns it.
+        /// </summary>
+        /// <param name="spineReference"></param>
+        public SpineReference addSpineReference(SpineReference spineReference)
+        {
+            if (spineReferences == null)
+            {
+                this.spineReferences = new List<SpineReference>();
+            }
+            spineReferences.Add(spineReference);
+            return spineReference;
+        }
 
-		}
 
-		/// 
-		/// <param name="spineReferences"></param>
-		public Spine(List<SpineReference> spineReferences){
+        /// <summary>
+        /// Finds the first resource that has the given resourceId.  Null if not found.
+        /// </summary>
+        /// <param name="resourceId"></param>
+        public int findFirstResourceById(string resourceId)
+        {
+            if (StringUtil.isBlank(resourceId))
+            {
+                return -1;
+            }
 
-		}
+            for (int i = 0; i < spineReferences.Count; i++)
+            {
+                SpineReference spineReference = spineReferences[i];
+                if (resourceId.Equals(spineReference.getResourceId()))
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
 
-		/// <summary>
-		/// Adds the given resource to the spine references and returns it.
-		/// </summary>
-		/// <param>spineReference</param>
-		/// <param name="resource"></param>
-		public SpineReference addResource(Resource resource){
+        /// <summary>
+        /// Gets the resource at the given index. Null if not found.
+        /// </summary>
+        /// <param name="index"></param>
+        public Resource getResource(int index)
+        {
+            if (index < 0 || index >= spineReferences.Count)
+            {
+                return null;
+            }
+            return spineReferences[index].getResource();
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// The position within the spine of the given resource.
+        /// </summary>
+        /// something < 0 if not found.
+        /// <param name="currentResource"></param>
+        public int getResourceIndex(Resource currentResource)
+        {
+            if (currentResource == null)
+            {
+                return -1;
+            }
+            return getResourceIndex(currentResource.getHref());
+        }
 
-		/// <summary>
-		/// Adds the given spineReference to the spine references and returns it.
-		/// </summary>
-		/// <param name="spineReference"></param>
-		public SpineReference addSpineReference(SpineReference spineReference){
+        /// <summary>
+        /// The first position within the spine of a resource with the given href.
+        /// </summary>
+        /// something < 0 if not found.
+        /// <param name="resourceHref"></param>
+        public int getResourceIndex(string resourceHref)
+        {
+            int result = -1;
+            if (StringUtil.isBlank(resourceHref))
+            {
+                return result;
+            }
+            for (int i = 0; i < spineReferences.Count; i++)
+            {
+                if (resourceHref.Equals(spineReferences[i].getResource().getHref()))
+                {
+                    result = i;
+                    break;
+                }
+            }
+            return result;
+        }
 
-			return null;
-		}
+        public List<SpineReference> getSpineReferences()
+        {
+            return spineReferences;
+        }
 
-		/// 
-		/// <param name="resources"></param>
-		public static List<SpineReference> createSpineReferences(Collection<Resource> resources){
+        /// <summary>
+        /// The resource containing the XML for the tableOfContents. When saving an epub
+        /// file this resource needs to be in this place.
+        /// </summary>
+        public Resource getTocResource()
+        {
+            return tocResource;
+        }
 
-			return null;
-		}
+        public bool isEmpty()
+        {
+            return spineReferences.Count == 0 ? true : false;
+        }
 
-		/// <summary>
-		/// Finds the first resource that has the given resourceId.  Null if not found.
-		/// </summary>
-		/// <param name="resourceId"></param>
-		public int findFirstResourceById(string resourceId){
+        /// 
+        /// <param name="spineReferences"></param>
+        public void setSpineReferences(List<SpineReference> spineReferences)
+        {
+            this.spineReferences = spineReferences;
+        }
 
-			return 0;
-		}
+        /// <summary>
+        /// As per the epub file format the spine officially maintains a reference to the
+        /// Table of Contents. The epubwriter will look for it here first, followed by some
+        /// clever tricks to find it elsewhere if not found. Put it here to be sure of the
+        /// expected behaviours.
+        /// </summary>
+        /// <param name="tocResource">tocResource</param>
+        public void setTocResource(Resource tocResource)
+        {
+            this.tocResource = tocResource;
 
-		/// <summary>
-		/// Gets the resource at the given index. Null if not found.
-		/// </summary>
-		/// <param name="index"></param>
-		public Resource getResource(int index){
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// The number of elements in the spine.
+        /// </summary>
+        public int size()
+        {
+            return spineReferences.Count;
+        }
 
-		/// <summary>
-		/// The position within the spine of the given resource.
-		/// </summary>
-		/// something < 0 if not found.
-		/// <param name="currentResource"></param>
-		public int getResourceIndex(Resource currentResource){
-
-			return 0;
-		}
-
-		/// <summary>
-		/// The first position within the spine of a resource with the given href.
-		/// </summary>
-		/// something < 0 if not found.
-		/// <param name="resourceHref"></param>
-		public int getResourceIndex(string resourceHref){
-
-			return 0;
-		}
-
-		public List<SpineReference> getSpineReferences(){
-
-			return null;
-		}
-
-		/// <summary>
-		/// The resource containing the XML for the tableOfContents. When saving an epub
-		/// file this resource needs to be in this place.
-		/// </summary>
-		public Resource getTocResource(){
-
-			return null;
-		}
-
-		public bool isEmpty(){
-
-			return false;
-		}
-
-		/// 
-		/// <param name="spineReferences"></param>
-		public void setSpineReferences(List<SpineReference> spineReferences){
-
-		}
-
-		/// <summary>
-		/// As per the epub file format the spine officially maintains a reference to the
-		/// Table of Contents. The epubwriter will look for it here first, followed by some
-		/// clever tricks to find it elsewhere if not found. Put it here to be sure of the
-		/// expected behaviours.
-		/// </summary>
-		/// <param name="tocResource">tocResource</param>
-		public void setTocResource(Resource tocResource){
-
-		}
-
-		/// <summary>
-		/// The number of elements in the spine.
-		/// </summary>
-		public int size(){
-
-			return 0;
-		}
-
-	}//end Spine
+    }//end Spine
 
 }//end namespace domain
