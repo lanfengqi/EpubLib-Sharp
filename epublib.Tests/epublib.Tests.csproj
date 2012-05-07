@@ -55,6 +55,8 @@
   <ItemGroup>
     <Compile Include="BookTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourcesTest.cs" />
+    <Compile Include="TableOfContentsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\epublib\epublib.csproj">

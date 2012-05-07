@@ -307,7 +307,7 @@ namespace nl.siegmann.epublib.domain
         /// </summary>
         public int size()
         {
-            return tocReferences.Count;
+            return getTotalSize(tocReferences);
         }
 
     }//end TableOfContents

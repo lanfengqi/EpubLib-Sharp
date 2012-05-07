@@ -297,9 +297,21 @@ namespace nl.siegmann.epublib.domain
         /// All resources that have the given MediaType.
         /// </summary>
         /// <param name="mediaType"></param>
-        public Dictionary<string, Resource> getResourcesByMediaType(MediaType mediaType)
+        public List<Resource> getResourcesByMediaType(MediaType mediaType)
         {
-            return resources;
+            List<Resource> result = new List<Resource>();
+            if (mediaType == null)
+            {
+                return result;
+            }
+            foreach (Resource resource in getAll())
+            {
+                if (resource.getMediaType() == mediaType)
+                {
+                    result.Add(resource);
+                }
+            }
+            return result;
         }
 
         /// <summary>
@@ -313,9 +325,8 @@ namespace nl.siegmann.epublib.domain
             {
                 return result;
             }
-            List<MediaType> lmediaType = new List<MediaType>();
-            lmediaType.CopyTo(mediaTypes);
-
+            List<MediaType> lmediaType = new List<MediaType>(mediaTypes);
+     
             foreach (Resource resource in getAll())
             {
                 if (lmediaType.Contains(resource.getMediaType()))
