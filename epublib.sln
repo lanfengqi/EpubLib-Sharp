@@ -7,7 +7,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "demo", "demo", "{817E9366-D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "epublib", "epublib\epublib.csproj", "{11B7D88C-5768-42C9-93A9-562B75E26704}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "epublib.Tests", "epublib.Tests\epublib.Tests.csproj", "{9B13C57F-64D0-414F-A318-58D1D369E477}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A263D53C-17FF-472D-BB3A-3FC6297420CF}"
+	ProjectSection(SolutionItems) = preProject
+		epublib.vsmdi = epublib.vsmdi
+		Local.testsettings = Local.testsettings
+		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
+	EndProjectSection
+EndProject
 Global
+	GlobalSection(TestCaseManagementSettings) = postSolution
+		CategoryFile = epublib.vsmdi
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -17,11 +29,16 @@ Global
 		{11B7D88C-5768-42C9-93A9-562B75E26704}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11B7D88C-5768-42C9-93A9-562B75E26704}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11B7D88C-5768-42C9-93A9-562B75E26704}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B13C57F-64D0-414F-A318-58D1D369E477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B13C57F-64D0-414F-A318-58D1D369E477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B13C57F-64D0-414F-A318-58D1D369E477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B13C57F-64D0-414F-A318-58D1D369E477}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{11B7D88C-5768-42C9-93A9-562B75E26704} = {AB4E17BA-C0EB-4552-9D56-D8E8C0CB53A5}
+		{9B13C57F-64D0-414F-A318-58D1D369E477} = {AB4E17BA-C0EB-4552-9D56-D8E8C0CB53A5}
 	EndGlobalSection
 EndGlobal

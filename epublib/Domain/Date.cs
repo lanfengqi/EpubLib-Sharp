@@ -10,96 +10,99 @@
 
 using System;
 
-namespace nl.siegmann.epublib.domain {
-	/// <summary>
-	/// A Date used by the book's metadata.  Examples: creation-date, modification-date,
-	/// etc
-	/// </summary>
-	[Serializable]
-	public class Date  {
+namespace nl.siegmann.epublib.domain
+{
+    /// <summary>
+    /// A Date used by the book's metadata.  Examples: creation-date, modification-date,
+    /// etc
+    /// </summary>
+    [Serializable]
+    public class Date
+    {
 
-		public enum Event : int {
+        public enum Event : int
+        {
+            PUBLICATION = 1,
+            MODIFICATION = 2,
+            CREATION = 3
 
-			PUBLICATION,
-			MODIFICATION,
-			CREATION,
-			value
+        }//end Event
 
-		}//end Event
+        private string dateString;
+        private Event _event;
+        private static readonly long serialVersionUID = 7533866830395120136L;
 
-		private string dateString;
-		private Event _event;
-		private static readonly long serialVersionUID = 7533866830395120136L;
+        /// 
+        /// <param name="date"></param>
+        public Date(DateTime date)
+        {
+            this.dateString = date.ToShortDateString();
+        }
 
-		/// 
-		/// <param name="date"></param>
-		public Date(Date date){
+        /// 
+        /// <param name="dateString"></param>
+        public Date(string dateString)
+        {
+            this.dateString = dateString;
+        }
 
-		}
+        /// 
+        /// <param name="date"></param>
+        /// <param name="event"></param>
+        public Date(DateTime date, Event _event)
+        {
+            this.dateString = date.ToShortDateString();
+            this._event = _event;
+        }
 
-		/// 
-		/// <param name="dateString"></param>
-		public Date(string dateString){
+        /// 
+        /// <param name="dateString"></param>
+        /// <param name="event"></param>
+        public Date(string dateString, Event _event)
+        {
+            this.dateString = dateString;
+            this._event = _event;
+        }
 
-		}
+        /// 
+        /// <param name="dateString"></param>
+        private static string checkDate(string dateString)
+        {
+            if (dateString == null)
+            {
+                throw new ArgumentNullException("Cannot create a date from a blank string");
+            }
+            return dateString;
+        }
 
-		/// 
-		/// <param name="date"></param>
-		/// <param name="event"></param>
-		public Date(Date date, Event _event){
+        public Event getEvent()
+        {
 
-		}
+            return _event;
+        }
 
-		/// 
-		/// <param name="dateString"></param>
-		/// <param name="event"></param>
-		public Date(string dateString, Event _event){
+        public string getValue()
+        {
 
-		}
+            return dateString;
+        }
 
-		/// 
-		/// <param name="date"></param>
-		/// <param name="event"></param>
-		public Date(Date date, string _event){
+        /// 
+        /// <param name="event"></param>
+        public void setEvent(Event _event)
+        {
+            this._event = _event;
+        }
 
-		}
+        public string toString()
+        {
+            if (_event == null)
+            {
+                return dateString;
+            }
+            return "" + _event + ":" + dateString;
+        }
 
-		/// 
-		/// <param name="dateString"></param>
-		/// <param name="event"></param>
-	
-		public Date(string dateString, string _event){
-
-		}
-
-		/// 
-		/// <param name="dateString"></param>
-		private static string checkDate(string dateString){
-
-			return "";
-		}
-
-		public Event getEvent(){
-
-			return Event.CREATION ;
-		}
-
-		public string getValue(){
-
-			return "";
-		}
-
-		/// 
-		/// <param name="event"></param>
-		public void setEvent(Event _event){
-
-		}
-
-		public string toString(){
-
-			return "";
-		}
-
-	}//end Date
+    }//end Date
 
 }//end namespace domain

@@ -54,8 +54,7 @@ namespace nl.siegmann.epublib.util
         /// <param name="text"></param>
         public static String defaultIfNull(String text)
         {
-
-            return "";
+            return defaultIfNull(text, "");
         }
 
         /// <summary>
@@ -65,8 +64,11 @@ namespace nl.siegmann.epublib.util
         /// <param name="defaultValue"></param>
         public static String defaultIfNull(String text, String defaultValue)
         {
-
-            return "";
+            if (text == null)
+            {
+                return defaultValue;
+            }
+            return text;
         }
 
         /// <summary>

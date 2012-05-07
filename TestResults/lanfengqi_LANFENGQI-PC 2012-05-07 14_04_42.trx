@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<TestRun id="ceb7ba02-206c-420b-a529-6838d0e7097f" name="lanfengqi@LANFENGQI-PC 2012-05-07 14:04:42" runUser="lanfengqi-PC\lanfengqi" xmlns="http://microsoft.com/schemas/VisualStudio/TeamTest/2010">
+  <TestSettings name="Local" id="28d5472e-07ae-4bbf-9429-f420b8ac34cd">
+    <Description>These are default test settings for a local test run.</Description>
+    <Deployment enabled="false" runDeploymentRoot="lanfengqi_LANFENGQI-PC 2012-05-07 14_04_42">
+      <DeploymentItem filename="I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib\bin\Debug\epublib.dll" />
+      <DeploymentItem filename="I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\packages\Ionic.Zip.1.0.0\lib\net40\Ionic.Zip.dll" />
+    </Deployment>
+    <Execution>
+      <TestTypeSpecific />
+      <AgentRule name="Execution Agents">
+      </AgentRule>
+    </Execution>
+  </TestSettings>
+  <Times creation="2012-05-07T14:04:42.7033676+08:00" queuing="2012-05-07T14:04:43.3944049+08:00" start="2012-05-07T14:04:43.5294127+08:00" finish="2012-05-07T14:04:53.5005539+08:00" />
+  <ResultSummary outcome="Error">
+    <Counters total="1" executed="1" error="0" failed="0" timeout="0" aborted="1" inconclusive="0" passedButRunAborted="0" notRunnable="0" notExecuted="0" disconnected="0" warning="0" passed="0" completed="0" inProgress="0" pending="0" />
+    <RunInfos>
+      <RunInfo computerName="LANFENGQI-PC" outcome="Error" timestamp="2012-05-07T14:04:53.4975538+08:00">
+        <Text>Test host process exited unexpectedly.</Text>
+      </RunInfo>
+    </RunInfos>
+  </ResultSummary>
+  <TestDefinitions>
+    <UnitTest name="BookConstructorTest" storage="i:\060.temporary\020.epublib csharp\epublib-sharp\epublib.tests\bin\debug\epublib.tests.dll" id="edf3223d-f1d6-7876-e6ef-a4c4e5eba278">
+      <Execution id="04908249-78ac-4cb0-964b-c2155dedfd7e" />
+      <TestMethod codeBase="I:/060.Temporary/020.EpubLib CSharp/EpubLib-Sharp/epublib.Tests/bin/Debug/epublib.Tests.DLL" adapterTypeName="Microsoft.VisualStudio.TestTools.TestTypes.Unit.UnitTestAdapter, Microsoft.VisualStudio.QualityTools.Tips.UnitTest.Adapter, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" className="epublib.Tests.BookTest, epublib.Tests, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null" name="BookConstructorTest" />
+    </UnitTest>
+  </TestDefinitions>
+  <TestLists>
+    <TestList name="Results Not in a List" id="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+    <TestList name="All Loaded Results" id="19431567-8539-422a-85d7-44ee4e166bda" />
+  </TestLists>
+  <TestEntries>
+    <TestEntry testId="edf3223d-f1d6-7876-e6ef-a4c4e5eba278" executionId="04908249-78ac-4cb0-964b-c2155dedfd7e" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" />
+  </TestEntries>
+  <Results>
+    <UnitTestResult executionId="04908249-78ac-4cb0-964b-c2155dedfd7e" testId="edf3223d-f1d6-7876-e6ef-a4c4e5eba278" testName="BookConstructorTest" computerName="LANFENGQI-PC" duration="00:00:09.8461341" startTime="2012-05-07T14:04:43.6544198+08:00" endTime="2012-05-07T14:04:53.5005539+08:00" testType="13cdc9d9-ddb5-4fa4-a97d-d965ccfc6d4b" outcome="Aborted" testListId="8c84fa94-04c1-424b-9868-57a2d4851a1d" relativeResultsDirectory="04908249-78ac-4cb0-964b-c2155dedfd7e">
+    </UnitTestResult>
+  </Results>
+</TestRun>

@@ -37,7 +37,7 @@ namespace nl.siegmann.epublib.domain
         /// org/wiki/Epigraph_%28literature%29
         /// </summary>
         public static string EPIGRAPH = "epigraph";
-        public static string FOREWPRD = "foreword";
+        public static string FOREWORD = "foreword";
         public static string GLOSSARY = "glossary";
         /// <summary>
         /// back-of-book style index

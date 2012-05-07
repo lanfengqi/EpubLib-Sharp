@@ -11,218 +11,275 @@
 using System;
 using System.Collections.Generic;
 using nl.siegmann.epublib.domain;
-namespace nl.siegmann.epublib.domain {
+namespace nl.siegmann.epublib.domain
+{
 
-	public class Book  {
+    public class Book
+    {
+        private Resource coverImage;
+        private Guide guide = new Guide();
+        private Metadata metadata = new Metadata();
+        private Resource ncxResource;
+        private Resource opfResource;
+        private Resources resources = new Resources();
+        private static readonly long serialVersionUID = 2068355170895770100L;
+        private Spine spine = new Spine();
+        private TableOfContents tableOfContents = new TableOfContents();
 
-		private Resource coverImage;
-		private Guide guide = new Guide();
-		private Metadata metadata = new Metadata();
-		private Resource ncxResource;
-		private Resource opfResource;
-		private Resources resources = new Resources();
-		private static readonly long serialVersionUID = 2068355170895770100L;
-		private Spine spine = new Spine();
-		private TableOfContents tableOfContents = new TableOfContents();
+        /// 
+        /// <param name="resource"></param>
+        public Resource addResource(Resource resource)
+        {
+            resources.add(resource);
+            return resource;
+        }
 
-		public Book(){
+        /// <summary>
+        /// Adds the resource to the table of contents of the book as a child section of
+        /// the given parentSection
+        /// </summary>
+        /// <param name="parentSection"></param>
+        /// <param name="sectionTitle"></param>
+        /// <param name="resource"></param>
+        public TOCReference addSection(TOCReference parentSection, string sectionTitle, Resource resource)
+        {
+            getResources().add(resource);
+            if (spine.findFirstResourceById(resource.getId()) < 0)
+            {
+                spine.addSpineReference(new SpineReference(resource));
+            }
+            return parentSection.addChildSection(new TOCReference(sectionTitle, resource));
+        }
 
-		}
+        /// <summary>
+        /// Adds a resource to the book's set of resources, table of contents and if there
+        /// is no resource with the id in the spine also adds it to the spine.
+        /// </summary>
+        /// <param name="title"></param>
+        /// <param name="resource"></param>
+        public TOCReference addSection(string title, Resource resource)
+        {
+            getResources().add(resource);
+            TOCReference tocReference = tableOfContents.addTOCReference(new TOCReference(title, resource));
+            if (spine.findFirstResourceById(resource.getId()) < 0)
+            {
+                spine.addSpineReference(new SpineReference(resource));
+            }
+            return tocReference;
+        }
 
-		~Book(){
+        /// 
+        /// <param name="resource"></param>
+        /// <param name="allReachableResources"></param>
+        private static void addToContentsResult(Resource resource, Dictionary<String, Resource> allReachableResources)
+        {
+            if (resource != null && (!allReachableResources.ContainsKey(resource.getHref())))
+            {
+                allReachableResources.Add(resource.getHref(), resource);
+            }
+        }
 
-		}
+        public void generateSpineFromTableOfContents()
+        {
+            Spine spine = new Spine(tableOfContents);
 
-		public virtual void Dispose(){
+            // in case the tocResource was already found and assigned
+            spine.setTocResource(this.spine.getTocResource());
 
-		}
+            this.spine = spine;
+        }
 
-		/// 
-		/// <param name="resource"></param>
-		public Resource addResource(Resource resource){
+        /// <summary>
+        /// All Resources of the Book that can be reached via the Spine, the
+        /// TableOfContents or the Guide.
+        ///            <p/> Consists of a list of "reachable" resources:
+        ///            <ul>
+        ///            <li>The coverpage</li>
+        ///            <li>The resources of the Spine that are not already in the
+        /// result</li>
+        ///            <li>The resources of the Table of Contents that are not already in
+        /// the result</li>
+        ///            <li>The resources of the Guide that are not already in the
+        /// result</li>
+        ///            </ul> To get all html files that make up the epub file use
+        /// </summary>
+        /// <see>getResources().getAll()</see>
+        public List<Resource> getContents()
+        {
+            Dictionary<String, Resource> result = new Dictionary<String, Resource>();
+            addToContentsResult(getCoverPage(), result);
 
-			return null;
-		}
+            foreach (SpineReference spineReference in getSpine().getSpineReferences())
+            {
+                addToContentsResult(spineReference.getResource(), result);
+            }
 
-		/// <summary>
-		/// Adds the resource to the table of contents of the book as a child section of
-		/// the given parentSection
-		/// </summary>
-		/// <param name="parentSection"></param>
-		/// <param name="sectionTitle"></param>
-		/// <param name="resource"></param>
-		public TOCReference addSection(TOCReference parentSection, string sectionTitle, Resource resource){
+            foreach (Resource resource in getTableOfContents().getAllUniqueResources())
+            {
+                addToContentsResult(resource, result);
+            }
 
-			return null;
-		}
+            foreach (GuideReference guideReference in getGuide().getReferences())
+            {
+                addToContentsResult(guideReference.getResource(), result);
+            }
+            return new List<Resource>(result.Values);
+        }
 
-		/// <summary>
-		/// Adds a resource to the book's set of resources, table of contents and if there
-		/// is no resource with the id in the spine also adds it to the spine.
-		/// </summary>
-		/// <param name="title"></param>
-		/// <param name="resource"></param>
-		public TOCReference addSection(string title, Resource resource){
+        /// <summary>
+        /// The book's cover image.
+        /// </summary>
+        public Resource getCoverImage()
+        {
+            return coverImage;
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// The book's cover page. An XHTML document containing a link to the cover image.
+        /// </summary>
+        public Resource getCoverPage()
+        {
+            Resource coverPage = guide.getCoverPage();
+            if (coverPage == null)
+            {
+                coverPage = spine.getResource(0);
+            }
+            return coverPage;
+        }
 
-		/// 
-		/// <param name="resource"></param>
-		/// <param name="allReachableResources"></param>
-		private static void addToContentsResult(Resource resource, Dictionary<String, Resource> allReachableResources){
+        /// <summary>
+        /// The guide; contains references to special sections of the book like colophon,
+        /// glossary, etc.
+        /// </summary>
+        public Guide getGuide()
+        {
+            return guide;
+        }
 
-		}
+        /// <summary>
+        /// The Book's metadata (titles, authors, etc)
+        /// </summary>
+        public Metadata getMetadata()
+        {
+            return metadata;
+        }
 
-		public void generateSpineFromTableOfContents(){
+        public Resource getNcxResource()
+        {
+            return ncxResource;
+        }
 
-		}
+        public Resource getOpfResource()
+        {
+            return opfResource;
+        }
 
-		/// <summary>
-		/// All Resources of the Book that can be reached via the Spine, the
-		/// TableOfContents or the Guide.
-		///            <p/> Consists of a list of "reachable" resources:
-		///            <ul>
-		///            <li>The coverpage</li>
-		///            <li>The resources of the Spine that are not already in the
-		/// result</li>
-		///            <li>The resources of the Table of Contents that are not already in
-		/// the result</li>
-		///            <li>The resources of the Guide that are not already in the
-		/// result</li>
-		///            </ul> To get all html files that make up the epub file use
-		/// </summary>
-		/// <see>getResources().getAll()</see>
-		public List<Resource> getContents(){
+        /// <summary>
+        /// The collection of all images, chapters, sections, xhtml files, stylesheets, etc
+        /// that make up the book.
+        /// </summary>
+        public Resources getResources()
+        {
+            return resources;
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// The sections of the book that should be shown if a user reads the book from
+        /// start to finish.
+        /// </summary>
+        public Spine getSpine()
+        {
+            return spine;
+        }
 
-		/// <summary>
-		/// The book's cover image.
-		/// </summary>
-		public Resource getCoverImage(){
+        /// <summary>
+        /// The Table of Contents of the book.
+        /// </summary>
+        public TableOfContents getTableOfContents()
+        {
+            return tableOfContents;
+        }
 
-			return null;
-		}
+        /// <summary>
+        /// Gets the first non-blank title from the book's metadata.
+        /// </summary>
+        public string getTitle()
+        {
+            return getMetadata().getFirstTitle();
+        }
 
-		/// <summary>
-		/// The book's cover page. An XHTML document containing a link to the cover image.
-		/// </summary>
-		public Resource getCoverPage(){
+        /// 
+        /// <param name="coverImage"></param>
+        public void setCoverImage(Resource coverImage)
+        {
+            if (coverImage == null)
+            {
+                return;
+            }
+            if (!resources.containsByHref(coverImage.getHref()))
+            {
+                resources.add(coverImage);
+            }
+            this.coverImage = coverImage;
+        }
 
-			return null;
-		}
+        /// 
+        /// <param name="coverPage"></param>
+        public void setCoverPage(Resource coverPage)
+        {
+            if (coverPage == null)
+            {
+                return;
+            }
+            if (!resources.containsByHref(coverPage.getHref()))
+            {
+                resources.add(coverPage);
+            }
+            guide.setCoverPage(coverPage);
+        }
 
-		/// <summary>
-		/// The guide; contains references to special sections of the book like colophon,
-		/// glossary, etc.
-		/// </summary>
-		public Guide getGuide(){
+        /// 
+        /// <param name="metadata"></param>
+        public void setMetadata(Metadata metadata)
+        {
+            this.metadata = metadata;
+        }
 
-			return null;
-		}
+        /// 
+        /// <param name="ncxResource"></param>
+        public void setNcxResource(Resource ncxResource)
+        {
+            this.ncxResource = ncxResource;
+        }
 
-		/// <summary>
-		/// The Book's metadata (titles, authors, etc)
-		/// </summary>
-		public Metadata getMetadata(){
+        /// 
+        /// <param name="opfResource"></param>
+        public void setOpfResource(Resource opfResource)
+        {
+            this.opfResource = opfResource;
+        }
 
-			return null;
-		}
+        /// 
+        /// <param name="resources"></param>
+        public void setResources(Resources resources)
+        {
+            this.resources = resources;
+        }
 
-		public Resource getNcxResource(){
+        /// 
+        /// <param name="spine"></param>
+        public void setSpine(Spine spine)
+        {
+            this.spine = spine;
+        }
 
-			return null;
-		}
+        /// 
+        /// <param name="tableOfContents"></param>
+        public void setTableOfContents(TableOfContents tableOfContents)
+        {
+            this.tableOfContents = tableOfContents;
+        }
 
-		public Resource getOpfResource(){
-
-			return null;
-		}
-
-		/// <summary>
-		/// The collection of all images, chapters, sections, xhtml files, stylesheets, etc
-		/// that make up the book.
-		/// </summary>
-		public Resources getResources(){
-
-			return null;
-		}
-
-		/// <summary>
-		/// The sections of the book that should be shown if a user reads the book from
-		/// start to finish.
-		/// </summary>
-		public Spine getSpine(){
-
-			return null;
-		}
-
-		/// <summary>
-		/// The Table of Contents of the book.
-		/// </summary>
-		public TableOfContents getTableOfContents(){
-
-			return null;
-		}
-
-		/// <summary>
-		/// Gets the first non-blank title from the book's metadata.
-		/// </summary>
-		public string getTitle(){
-
-			return "";
-		}
-
-		/// 
-		/// <param name="coverImage"></param>
-		public void setCoverImage(Resource coverImage){
-
-		}
-
-		/// 
-		/// <param name="coverPage"></param>
-		public void setCoverPage(Resource coverPage){
-
-		}
-
-		/// 
-		/// <param name="metadata"></param>
-		public void setMetadata(Metadata metadata){
-
-		}
-
-		/// 
-		/// <param name="ncxResource"></param>
-		public void setNcxResource(Resource ncxResource){
-
-		}
-
-		/// 
-		/// <param name="opfResource"></param>
-		public void setOpfResource(Resource opfResource){
-
-		}
-
-		/// 
-		/// <param name="resources"></param>
-		public void setResources(Resources resources){
-
-		}
-
-		/// 
-		/// <param name="spine"></param>
-		public void setSpine(Spine spine){
-
-		}
-
-		/// 
-		/// <param name="tableOfContents"></param>
-		public void setTableOfContents(TableOfContents tableOfContents){
-
-		}
-
-	}//end Book
+    }//end Book
 
 }//end namespace domain

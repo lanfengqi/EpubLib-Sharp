@@ -1,0 +1,8 @@
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\obj\Debug\ResolveAssemblyReference.cache
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\bin\Debug\epublib.Tests.dll
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\bin\Debug\epublib.Tests.pdb
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\bin\Debug\epublib.dll
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\bin\Debug\Ionic.Zip.dll
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\bin\Debug\epublib.pdb
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\obj\Debug\epublib.Tests.dll
+I:\060.Temporary\020.EpubLib CSharp\EpubLib-Sharp\epublib.Tests\obj\Debug\epublib.Tests.pdb
