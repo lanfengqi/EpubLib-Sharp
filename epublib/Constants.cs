@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace epublib
+namespace nl.siegmann.epublib
 {
     public static class Constants
     {
         /// <summary>
         /// 编码格式
         /// </summary>
-        public static string ENCODING = "UTF-8";
+        public static string ENCODING ="uft-8";
         /// <summary>
         /// xhtml 类型
         /// </summary>

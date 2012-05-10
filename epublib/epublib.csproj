@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -61,14 +62,20 @@
     <Compile Include="Domain\TableOfContents.cs" />
     <Compile Include="Domain\TitledResourceReference.cs" />
     <Compile Include="Domain\TOCReference.cs" />
+    <Compile Include="Epub\BookProcessor.cs" />
+    <Compile Include="Epub\BookProcessorPipeline.cs" />
+    <Compile Include="Epub\DOMUtil.cs" />
+    <Compile Include="Epub\EpubReader.cs" />
+    <Compile Include="Epub\EpubWriter.cs" />
+    <Compile Include="Epub\PackageDocumentBase.cs" />
+    <Compile Include="Epub\PackageDocumentReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\MediatypeService.cs" />
     <Compile Include="Util\IOUtil.cs" />
+    <Compile Include="Util\ResourceUtil.cs" />
     <Compile Include="Util\StringUtil.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Epub\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>

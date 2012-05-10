@@ -10,7 +10,6 @@
 using System;
 using System.IO;
 using Ionic.Zip;
-using epublib;
 using nl.siegmann.epublib.domain;
 using nl.siegmann.epublib.service;
 using nl.siegmann.epublib.util;

@@ -8,7 +8,6 @@
 
 
 using System;
-using epublib;
 using nl.siegmann.epublib.domain;
 using nl.siegmann.epublib.util;
 

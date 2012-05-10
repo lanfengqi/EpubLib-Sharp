@@ -10,7 +10,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using epublib;
+
 using nl.siegmann.epublib.domain;
 using nl.siegmann.epublib.service;
 using nl.siegmann.epublib.util;

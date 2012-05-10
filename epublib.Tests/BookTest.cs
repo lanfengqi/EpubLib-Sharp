@@ -71,17 +71,17 @@ namespace epublib.Tests
             book.getTableOfContents().addSection(resource1, "My first chapter");
             Assert.AreEqual(1, book.getContents().Count);
         }
-         [TestMethod]
+        [TestMethod]
         public void testGetContents2()
         {
             Book book = new Book();
             Resource resource1 = new Resource("id1", System.Text.Encoding.UTF8.GetBytes("Hello, world !"), "chapter1.html", MediatypeService.XHTML);
             book.getSpine().addResource(resource1);
-            Resource resource2 = new Resource("id1",System.Text.Encoding.UTF8.GetBytes("Hello, world !"), "chapter2.html", MediatypeService.XHTML);
+            Resource resource2 = new Resource("id1", System.Text.Encoding.UTF8.GetBytes("Hello, world !"), "chapter2.html", MediatypeService.XHTML);
             book.getTableOfContents().addSection(resource2, "My first chapter");
             Assert.AreEqual(2, book.getContents().Count);
         }
-         [TestMethod]
+        [TestMethod]
         public void testGetContents3()
         {
             Book book = new Book();
@@ -92,7 +92,7 @@ namespace epublib.Tests
             book.getGuide().addReference(new GuideReference(resource2, GuideReference.FOREWORD, "The Foreword"));
             Assert.AreEqual(2, book.getContents().Count);
         }
-         [TestMethod]
+        [TestMethod]
         public void testGetContents4()
         {
             Book book = new Book();
